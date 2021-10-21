@@ -31,12 +31,30 @@ function Posts(props) {
   )
 }
 
+/*
 Posts.getInitialProps = async ctx => {
-  console.log('ccccc ', ctx)
   const resp = await fetch('http://localhost:3000/api/posts');
   const result = await resp.json();
-  console.log('rrrrr ', result)
   return { posts: result || [] };
+}
+*/
+
+export async function getServerSideProps(ctx) {
+  const resp = await fetch('http://localhost:3000/api/posts');
+  if (!resp.ok) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
+  const result = await resp.json();
+  return {
+    props: {
+      posts: result || []
+    }
+  }
 }
 
 export default Posts;
