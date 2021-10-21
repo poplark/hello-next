@@ -47,7 +47,6 @@ export async function getServerSideProps(ctx) {
 
 export async function getStaticProps(ctx) {
   const { params } = ctx;
-  console.log('cccc ', params)
   const resp = await fetch(`http://localhost:3000/api/posts/${params.id}`);
   if (!resp.ok) {
     return {
@@ -63,16 +62,16 @@ export async function getStaticProps(ctx) {
 }
 
 export async function getStaticPaths() {
-  // const resp = await fetch('http://localhost:3000/api/posts');
-  // if (resp.ok) {
-  //   const posts = await resp.json();
-  //   return {
-  //     paths: posts.map((post) => (
-  //       { params: { id: `${post.id}` } }
-  //     )),
-  //     fallback: false,
-  //   }
-  // }
+  const resp = await fetch('http://localhost:3000/api/posts');
+  if (resp.ok) {
+    const posts = await resp.json();
+    return {
+      paths: posts.map((post) => (
+        { params: { id: `${post.id}` } }
+      )),
+      fallback: 'blocking',
+    }
+  }
   return {
     paths: [
       { params: { id: '1' } }
