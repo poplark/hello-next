@@ -1,4 +1,5 @@
 import { Table } from 'antd';
+import Navigator from '../../components/Navigator';
 import fetch from 'isomorphic-fetch';
 
 const { Column } = Table;
@@ -21,6 +22,11 @@ function TVs(props) {
   ]
   return (
     <div>
+      <Navigator links={[
+        { url: '/tvs/initial', label: 'Initial' },
+        { url: '/tvs/static', label: 'Static' },
+        { url: '/tvs/server', label: 'Server' },
+      ]}/>
       <Table rowKey="id" columns={columns} dataSource={data}/>
     </div>
   )
