@@ -1,8 +1,10 @@
 import { Card } from 'antd';
+// import fetch from 'isomorphic-fetch';
+import { fetchPosts, fetchPost } from '../../utils/fetch';
 
 function Post(props) {
+  console.log('post props ', props);
   const { post } = props;
-  console.log('sssss ', post);
   return (
     <div>
       <Card title={post.title}>
@@ -47,7 +49,8 @@ export async function getServerSideProps(ctx) {
 
 export async function getStaticProps(ctx) {
   const { params } = ctx;
-  const resp = await fetch(`http://localhost:3000/api/posts/${params.id}`);
+  // const resp = await fetch(`http://localhost:3000/api/posts/${params.id}`);
+  const resp = await fetchPost(params.id);
   if (!resp.ok) {
     return {
       notFound: true,
@@ -62,7 +65,8 @@ export async function getStaticProps(ctx) {
 }
 
 export async function getStaticPaths() {
-  const resp = await fetch('http://localhost:3000/api/posts');
+  // const resp = await fetch('http://localhost:3000/api/posts');
+  const resp = await fetchPosts();
   if (resp.ok) {
     const posts = await resp.json();
     return {

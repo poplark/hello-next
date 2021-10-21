@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Table } from 'antd';
-import fetch from 'isomorphic-fetch';
+// import fetch from 'isomorphic-fetch';
+import { fetchPosts } from '../../utils/fetch';
 
 const { Column } = Table;
 
@@ -40,7 +41,8 @@ Posts.getInitialProps = async ctx => {
 */
 
 export async function getServerSideProps(ctx) {
-  const resp = await fetch('http://localhost:3000/api/posts');
+  // const resp = await fetch('http://localhost:3000/api/posts');
+  const resp = await fetchPosts();
   if (!resp.ok) {
     return {
       redirect: {
