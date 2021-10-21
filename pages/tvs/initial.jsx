@@ -33,7 +33,7 @@ function TVs(props) {
 }
 
 TVs.getInitialProps = async ctx => {
-  const resp = await fetch('http://api.tvmaze.com/search/shows?q=batman', {
+  const resp = await fetch('https://api.tvmaze.com/search/shows?q=batman', {
     method: 'GET',
     mode: 'cors',
   });
